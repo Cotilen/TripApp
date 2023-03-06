@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">TripApp</string>
+    <string name="title_login">Login</string>
+    <string name="login">Please sign in to continue</string>
+    <string name="email">E-mail</string>
+    <string name="password">Password</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="dont_account">Don`t have an account?</string>
+    <string name="sign_up">Sign p</string>
+    <string name="new_account">Create a new account</string>
+    <string name="username">Username</string>
+    <string name="phone">Phone</string>
+    <string name="over_18">Over 18?</string>
+    <string name="create">Create account</string>
+    <string name="already_account">Already have an account?</string>
+    <string name="sign_in_lower">Sign in</string>
+
+</resources>
