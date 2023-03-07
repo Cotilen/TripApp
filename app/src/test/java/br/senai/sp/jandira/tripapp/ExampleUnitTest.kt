@@ -1,4 +1,4 @@
-package com.example.tripapp
+package br.senai.sp.jandira.tripapp
 
 import org.junit.Test
 
