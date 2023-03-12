@@ -1,13 +1,16 @@
 package br.senai.sp.jandira.tripapp
 
+import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -18,6 +21,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.fontResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -166,13 +170,16 @@ fun TripAppScreen() {
                         )
                         Spacer(modifier = Modifier.width(4.dp))
 
-                        Text(
-                            text = stringResource(id = R.string.sign_up),
+                        ClickableText(text = AnnotatedString(text = stringResource(id = R.string.sign_up)
+                        ), style = androidx.compose.ui.text.TextStyle(
                             color = Color(207, 6, 240),
                             fontSize = 12.sp,
                             fontWeight = FontWeight(700),
                             fontFamily = fontFamily,
-                            lineHeight = 18.sp
+                            lineHeight = 18.sp,
+                        ) , onClick ={
+                            val openOther = Intent(context2,SignUpActivity::class.java)
+                                            context2.startActivity(openOther)}
                         )
 
 
