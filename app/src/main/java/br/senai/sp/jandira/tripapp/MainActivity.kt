@@ -1,13 +1,11 @@
 package br.senai.sp.jandira.tripapp
 
+import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
@@ -18,19 +16,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.fontResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.res.ResourcesCompat
 import br.senai.sp.jandira.tripapp.ui.theme.TripAppTheme
-import java.time.format.TextStyle
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +40,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@SuppressLint("SuspiciousIndentation")
 @Preview(showSystemUi = true)
 @Composable
 fun TripAppScreen() {
@@ -66,12 +63,11 @@ fun TripAppScreen() {
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.SpaceBetween) {
-//Header
-            Column(
+
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(),
-                horizontalAlignment = Alignment.End,
+                    .padding(), horizontalArrangement = Arrangement.End,
             ) {
                 Card(
                     modifier = Modifier
@@ -81,7 +77,6 @@ fun TripAppScreen() {
                     shape = RoundedCornerShape(bottomStart = 16.dp),
                 ) {}
             }
-            Spacer(modifier = Modifier.height(104.dp))
             Column(modifier = Modifier.padding(17.dp)) {
 
 
@@ -98,9 +93,8 @@ fun TripAppScreen() {
                     fontSize = 14.sp,
                     color = Color(160, 156, 156)
                 )
-
-                Spacer(modifier = Modifier.height(87.dp))
-
+            }
+            Column(modifier = Modifier.padding(17.dp)) {
                 OutlinedTextField(value = emailState,
                     onValueChange = {
                         Log.i("ds2m", it)
@@ -130,6 +124,7 @@ fun TripAppScreen() {
 
                     shape = RoundedCornerShape(16.dp),
                     label = { Text(stringResource(id = R.string.password)) },
+                    visualTransformation = PasswordVisualTransformation(),
                     leadingIcon = {
                         Icon(
                             painter = painterResource(id = R.drawable.password),
@@ -140,8 +135,8 @@ fun TripAppScreen() {
                             tint = Color(207, 6, 240)
                         )
                     })
-                Spacer(modifier = Modifier.height(31.dp))
-                Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.End) {
+            }
+                Column(modifier = Modifier.fillMaxWidth().padding(end = 17.dp), horizontalAlignment = Alignment.End) {
                     Button(
                         onClick = { /*TODO*/ },
                         modifier = Modifier
@@ -153,7 +148,11 @@ fun TripAppScreen() {
                         )
                     ) {
                         Text(
-                            text = stringResource(id = R.string.sign_in), color = Color.White
+                            text = stringResource(id = R.string.sign_in).uppercase(), color = Color.White
+                        )
+                        Icon(painter = painterResource(id = R.drawable.arrow_forward_24),
+                            contentDescription ="",
+                        tint = Color(255,255,255)
                         )
 
                     }
@@ -178,21 +177,15 @@ fun TripAppScreen() {
                             fontFamily = fontFamily,
                             lineHeight = 18.sp,
                         ) , onClick ={
-                            val openOther = Intent(context2,SignUpActivity::class.java)
-                                            context2.startActivity(openOther)}
+                            val openSignUp = Intent(context2,SignUp::class.java)
+                                            context2.startActivity(openSignUp)}
                         )
 
 
                     }
 
-                    Spacer(modifier = Modifier.height(108.dp))
-
 
                 }
-
-
-            }
-
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.Start
