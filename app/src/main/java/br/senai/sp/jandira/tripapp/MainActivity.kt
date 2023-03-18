@@ -136,9 +136,13 @@ fun TripAppScreen() {
                         )
                     })
             }
-                Column(modifier = Modifier.fillMaxWidth().padding(end = 17.dp), horizontalAlignment = Alignment.End) {
+                Column(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(end = 17.dp), horizontalAlignment = Alignment.End) {
                     Button(
-                        onClick = { /*TODO*/ },
+                        onClick = {
+                            val openHome = Intent(context2, HomeActivity::class.java)
+                            context2.startActivity(openHome)},
                         modifier = Modifier
                             .width(134.dp)
                             .height(48.dp),

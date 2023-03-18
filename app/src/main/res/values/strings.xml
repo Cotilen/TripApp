@@ -14,5 +14,18 @@
     <string name="create">Create account</string>
     <string name="already_account">Already have an account?</string>
     <string name="title_activity_sign_up">SignUp</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="name">Susanna Hoffs</string>
+    <string name="you_are">You\'re in Paris</string>
+    <string name="my_tripp">My Trips</string>
+    <string name="categories">Categories</string>
+    <string name="mountain">Mountain</string>
+    <string name="snow">Snow</string>
+    <string name="beach">Beach</string>
+    <string name="seach">Search your destinity</string>
+    <string name="past_trip">Past Trips</string>
+    <string name="london">London, 2019</string>
+    <string name="london_text">London is the capital and largest city of  the United Kingdom, with a population of just under 9 million.</string>
+    <string name="london_time">18 Feb - 21 Feb</string>
 
 </resources>
