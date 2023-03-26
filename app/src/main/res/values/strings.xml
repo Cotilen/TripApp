@@ -24,8 +24,10 @@
     <string name="beach">Beach</string>
     <string name="seach">Search your destinity</string>
     <string name="past_trip">Past Trips</string>
-    <string name="london">London, 2019</string>
-    <string name="london_text">London is the capital and largest city of  the United Kingdom, with a population of just under 9 million.</string>
-    <string name="london_time">18 Feb - 21 Feb</string>
+    <string name="london">London</string>
+    <string name="london_year">2019</string>
+    <string name="london_dataStart">18 Fev</string>
+    <string name="london_dataEnd">21 Fev</string>
+    <string name="london_description">London is the capital and largest city of  the United Kingdom, with a population of just under 9 million.</string>
 
 </resources>

@@ -26,6 +26,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.res.ResourcesCompat
+import br.senai.sp.jandira.tripapp.dao.repository.CategoriesRepository
+import br.senai.sp.jandira.tripapp.dao.repository.TripRepository
 import br.senai.sp.jandira.tripapp.ui.theme.TripAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -33,7 +35,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             TripAppTheme {
-                TripAppScreen()
+                HomeScreen(CategoriesRepository.getCategoriesList(),
+                    TripRepository.getTripList()
+                )
 
             }
         }

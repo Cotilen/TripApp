@@ -1,11 +1,14 @@
 package br.senai.sp.jandira.tripapp
 
 import android.os.Bundle
+import android.provider.ContactsContract.Data
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -14,6 +17,7 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -24,7 +28,13 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.senai.sp.jandira.tripapp.dao.repository.CategoriesRepository
+import br.senai.sp.jandira.tripapp.dao.repository.TripRepository
+import br.senai.sp.jandira.tripapp.model.Categories
+import br.senai.sp.jandira.tripapp.model.Trips
 import br.senai.sp.jandira.tripapp.ui.theme.TripAppTheme
+import java.io.DataInput
+import java.util.Date
 
 class HomeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +43,10 @@ class HomeActivity : ComponentActivity() {
             TripAppTheme {
                 // A surface container using the 'background' color from the theme
                 Surface {
-                    HomeScreen()
+                    HomeScreen(
+                        CategoriesRepository.getCategoriesList(),
+                        TripRepository.getTripList()
+                    )
 
                 }
             }
@@ -41,9 +54,9 @@ class HomeActivity : ComponentActivity() {
     }
 }
 
-@Preview(showSystemUi = true)
+//@Preview(showSystemUi = true)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(categories: List<Categories>, trips: List<Trips>) {
     Column(modifier = Modifier.fillMaxSize()) {
         //Header Paris
         Column() {
@@ -143,55 +156,38 @@ fun HomeScreen() {
 
         }
         //Cards Categorias
-        Row(modifier = Modifier.padding(start = 16.dp)) {
+        LazyRow(modifier = Modifier.padding(start = 19.dp)) {
+            for (categorie in categories) {
+                item {
+                    Card(
+                        modifier = Modifier
+                            .height(64.dp)
+                            .width(109.dp)
+                            .padding(end = 8.dp),
+                        backgroundColor = Color(207, 6, 240),
+                        shape = RoundedCornerShape(8.dp)
+                    ) {
+                        Column(
+                            modifier = Modifier.padding(top = 8.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Image(
+                                painter = categorie.image
+                                    ?: painterResource(id = R.drawable.susanna),
+                                contentDescription = "",
+                                Modifier.size(32.dp),
+                                colorFilter = ColorFilter.tint(Color.White)
+                            )
 
-            Card(
-                modifier = Modifier
-                    .height(64.dp)
-                    .width(109.dp),
-                backgroundColor = Color(207, 6, 240),
-                shape = RoundedCornerShape(8.dp)
-            ) {
-                Text(
-                    text = stringResource(id = R.string.mountain),
-                    textAlign = TextAlign.Center
-                )
+                            Text(
+                                text = categorie.name,
+                                color = Color.White
+                            )
+                        }
 
+                    }
+                }
             }
-
-            Spacer(modifier = Modifier.width(8.dp))
-
-            Card(
-                modifier = Modifier
-                    .height(64.dp)
-                    .width(109.dp),
-                backgroundColor = Color(234, 171, 244),
-                shape = RoundedCornerShape(8.dp)
-            ) {
-                Text(
-                    text = stringResource(id = R.string.snow),
-                    textAlign = TextAlign.Center
-                )
-
-            }
-
-            Spacer(modifier = Modifier.width(8.dp))
-
-            Card(
-                modifier = Modifier
-                    .height(64.dp)
-                    .width(109.dp),
-                backgroundColor = Color(234, 171, 244),
-                shape = RoundedCornerShape(8.dp)
-            ) {
-                Text(
-                    text = stringResource(id = R.string.beach),
-                    textAlign = TextAlign.Center
-                )
-
-            }
-
-
         }
         //Search
         Row(modifier = Modifier.padding(start = 16.dp, top = 33.dp)) {
@@ -226,6 +222,61 @@ fun HomeScreen() {
         }
         Spacer(modifier = Modifier.height(14.dp))
         //Trips
+        LazyColumn(modifier = Modifier.padding(start = 19.dp)) {
+
+            for (trip in trips) {
+                item {
+                    Card(
+                        modifier = Modifier
+                            .height(208.dp)
+                            .width(325.dp)
+                            .padding(bottom = 16.dp),
+                        backgroundColor = Color(255,255,255),
+                        shape = RoundedCornerShape(8.dp),
+                        elevation = 1.dp
+                    ) {
+                        Column(modifier = Modifier.padding(5.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally) {
+                            Image(painter = painterResource(id = R.drawable.london),
+                                contentDescription = "",
+                            modifier = Modifier
+                                .width(315.dp)
+                                .height(106.dp))
+
+                            Row(modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.Start) {
+
+                                Text(text = trip.city + ", " + trip.year,
+                                    color = Color(207, 6, 240),
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight(400),
+                                    lineHeight = 21.sp)
+                            }
+
+                            
+                            Text(text = trip.description,
+                                color = Color(160, 156, 156),
+                                fontSize = 10.sp,
+                                fontWeight = FontWeight(400),
+                                lineHeight = 15.sp)
+
+                            Row(modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.End) {
+                                Text(text = trip.dataStart + " - " + trip.dataEnd,
+                                    color = Color(207, 6, 240),
+                                    fontSize = 10.sp,
+                                    fontWeight = FontWeight(400),
+                                    lineHeight = 15.sp)
+                            }
+
+
+
+                        }
+                    }
+
+                }
+            }
+        }
         Column(modifier = Modifier.padding(start = 17.dp)) {
             Card(
                 modifier = Modifier
@@ -259,14 +310,14 @@ fun HomeScreen() {
                     )
 
                     Text(
-                        text = stringResource(id = R.string.london_text),
+                        text = stringResource(id = R.string.london_description),
                         color = Color(160, 156, 156),
                         fontSize = 10.sp,
                         fontWeight = FontWeight(400),
                         lineHeight = 15.sp
                     )
                     Text(
-                        text = stringResource(id = R.string.london_time),
+                        text = stringResource(id = R.string.name),
                         color = Color(207, 6, 240),
                         fontSize = 10.sp,
                         fontWeight = FontWeight(400),

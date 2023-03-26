@@ -16,17 +16,17 @@ class CategoriesRepository {
                 Categories(
                     id = 1,
                     name = stringResource(id = R.string.mountain),
-                    image = painterResource(id = R.drawable.mountain)
+                    image = painterResource(id = R.drawable.montain)
                 ),
                 Categories(
                     id = 2,
                     name = stringResource(id = R.string.snow),
-                    image = painterResource(id = R.drawable.mountain)
+                    image = painterResource(id = R.drawable.ski)
                 ),
                 Categories(
                     id = 3,
                     name = stringResource(id = R.string.beach),
-                    image = painterResource(id = R.drawable.mountain)
+                    image = painterResource(id = R.drawable.beach)
                 )
             )
         }
