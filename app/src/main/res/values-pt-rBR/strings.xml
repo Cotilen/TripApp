@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TripApp</string>
+    <string name="title_login">Login</string>
+    <string name="login">Por favor, entre para continuar</string>
+    <string name="email">E-mail</string>
+    <string name="password">Senha</string>
+    <string name="sign_in">Entrar</string>
+    <string name="dont_account">Não possui uma conta?</string>
+    <string name="sign_up">Cadastrar</string>
+    <string name="new_account">Criar uma nova conta</string>
+    <string name="username">Usuário</string>
+    <string name="phone">Telefone</string>
+    <string name="over_18">Maior de 18?</string>
+    <string name="create">Criar uma nova conta</string>
+    <string name="already_account">Já possui uma conta?</string>
+    <string name="title_activity_sign_up">Cadastrar</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="name">Susanna Hoffs</string>
+    <string name="you_are">Você estaa1 em Paris</string>
+    <string name="my_tripp">Minhas viagens</string>
+    <string name="categories">Categorias</string>
+    <string name="mountain">Montanha</string>
+    <string name="snow">Neve</string>
+    <string name="beach">Praia</string>
+    <string name="seach">Procure seu destino</string>
+    <string name="past_trip">Viagens antigas</string>
+    <string name="london">Londres</string>
+    <string name="london_year">2019</string>
+    <string name="london_dataStart">18 Fev</string>
+    <string name="london_dataEnd">21 Fev</string>
+    <string name="london_description">Londres é a capital e a maior cidade do Reino Unido, com uma população de um pouco menos de 9 milhões.</string>
+</resources>

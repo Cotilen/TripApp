@@ -1,4 +1,4 @@
-package br.senai.sp.jandira.tripapp
+package br.senai.sp.jandira.tripapp.gui
 
 import android.os.Bundle
 import android.provider.ContactsContract.Data
@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.senai.sp.jandira.tripapp.R
 import br.senai.sp.jandira.tripapp.dao.repository.CategoriesRepository
 import br.senai.sp.jandira.tripapp.dao.repository.TripRepository
 import br.senai.sp.jandira.tripapp.model.Categories

@@ -1,4 +1,4 @@
-package br.senai.sp.jandira.tripapp
+package br.senai.sp.jandira.tripapp.gui
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -26,6 +26,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.res.ResourcesCompat
+import br.senai.sp.jandira.tripapp.R
+import br.senai.sp.jandira.tripapp.components.BottomShape
+import br.senai.sp.jandira.tripapp.components.TopShape
 import br.senai.sp.jandira.tripapp.dao.repository.CategoriesRepository
 import br.senai.sp.jandira.tripapp.dao.repository.TripRepository
 import br.senai.sp.jandira.tripapp.ui.theme.TripAppTheme
@@ -35,9 +38,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             TripAppTheme {
-                HomeScreen(CategoriesRepository.getCategoriesList(),
-                    TripRepository.getTripList()
-                )
+
+               TripAppScreen()
 
             }
         }
@@ -73,13 +75,7 @@ fun TripAppScreen() {
                     .fillMaxWidth()
                     .padding(), horizontalArrangement = Arrangement.End,
             ) {
-                Card(
-                    modifier = Modifier
-                        .width(120.dp)
-                        .height(40.dp),
-                    backgroundColor = Color(207, 6, 240),
-                    shape = RoundedCornerShape(bottomStart = 16.dp),
-                ) {}
+               TopShape()
             }
             Column(modifier = Modifier.padding(17.dp)) {
 
@@ -116,7 +112,11 @@ fun TripAppScreen() {
                                 .width(22.dp),
                             tint = Color(207, 6, 240)
                         )
-                    })
+                    },
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    focusedBorderColor = Color(207, 6, 240),
+                    unfocusedBorderColor = Color(207, 6, 240)
+                ))
 
                 Spacer(modifier = Modifier.height(30.dp))
 
@@ -138,7 +138,11 @@ fun TripAppScreen() {
                                 .width(22.dp),
                             tint = Color(207, 6, 240)
                         )
-                    })
+                    },
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = Color(207, 6, 240),
+                        unfocusedBorderColor = Color(207, 6, 240)
+                    ))
             }
                 Column(modifier = Modifier
                     .fillMaxWidth()
@@ -198,13 +202,7 @@ fun TripAppScreen() {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.Start
             ) {
-                Card(
-                    modifier = Modifier
-                        .width(120.dp)
-                        .height(40.dp),
-                    backgroundColor = Color(207, 6, 240),
-                    shape = RoundedCornerShape(topEnd = 16.dp),
-                ) {}
+                BottomShape()
             }
         }
     }
