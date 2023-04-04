@@ -20,7 +20,8 @@ abstract class TripDb : RoomDatabase() {
                         context,
                         TripDb::class.java,
                         "db_trip"
-                    ).build()
+                    ).allowMainThreadQueries()
+                    .build()
             }
             return instanceDb
 
