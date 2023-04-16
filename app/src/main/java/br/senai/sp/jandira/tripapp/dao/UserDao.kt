@@ -1,6 +1,8 @@
 package br.senai.sp.jandira.tripapp.dao
 
 import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
 import br.senai.sp.jandira.tripapp.model.User
 
 @Dao

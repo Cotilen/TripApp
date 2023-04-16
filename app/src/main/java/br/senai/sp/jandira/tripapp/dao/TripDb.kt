@@ -1,31 +1,30 @@
-package br.senai.sp.jandira.tripapp.dao
+package br.senai.sp.jandira.tripadd.dao
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import br.senai.sp.jandira.tripapp.dao.UserDao
 import br.senai.sp.jandira.tripapp.model.User
 
 @Database(entities = [User::class], version = 1)
-abstract class TripDb : RoomDatabase() {
+abstract class TripDb: RoomDatabase(){
 
-    abstract fun UserDao():UserDao
+    abstract fun userDao(): UserDao
 
-    companion object {
+    companion object{
         private lateinit var instanceDb: TripDb
-        fun getDataBase(context: Context): TripDb {
-            if (!Companion::instanceDb.isInitialized) {
+        fun getDataBase(context: Context): TripDb{
+            if (!::instanceDb.isInitialized){
                 instanceDb = Room
                     .databaseBuilder(
                         context,
                         TripDb::class.java,
                         "db_trip"
-                    ).allowMainThreadQueries()
-                    .build()
+                    ).allowMainThreadQueries().build()
             }
             return instanceDb
-
         }
-
     }
+
 }

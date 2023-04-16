@@ -1,342 +1,375 @@
 package br.senai.sp.jandira.tripapp.gui
 
+import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.ClickableText
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Place
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import br.senai.sp.jandira.tripapp.R
+import br.senai.sp.jandira.tripapp.ui.theme.TripAppTheme
 import br.senai.sp.jandira.tripapp.components.BottomShape
 import br.senai.sp.jandira.tripapp.components.TopShape
-import br.senai.sp.jandira.tripapp.dao.repository.UserRepository
-import br.senai.sp.jandira.tripapp.model.User
 import br.senai.sp.jandira.tripapp.ui.theme.TripAppTheme
+import br.senai.sp.jandira.tripapp.R
+import br.senai.sp.jandira.tripapp.model.User
+import br.senai.sp.jandira.tripapp.repository.UserRepository
 
-class SignUp : ComponentActivity() {
+class SignUpActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//        val user = User(
+//            username = "Maria Da Silva",
+//            email = "maria@terra.com.br",
+//            password = "12345",
+//            phone = "(11)99999-9999",
+//            isOver18 = true
+//        )
+//
+//        val userRep = UserRepository(this)
+//        var id = userRep.save(user)
+//
+//        Toast.makeText(this, "$id", Toast.LENGTH_LONG).show()
 
 
-        val user = User(
-            userName = "Maria da Silva",
-            email = "MariaSilva@gmail.com",
-            password = "123456",
-            phone = "(11)95161-23672",
-            isOver18 = true
-        )
-
-        val userRep = UserRepository(this)
-
-        var id = userRep.save(user)
-
-        Toast.makeText(
-            this,
-            "$id",
-            Toast.LENGTH_LONG
-        ).show()
-        
         setContent {
             TripAppTheme {
+                // A surface container using the 'background' color from the theme
                 SignUpScreen()
-
             }
         }
     }
 }
 
-@Preview(showSystemUi = true)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun SignUpScreen() {
 
+    var fotoUriState by remember {
+        mutableStateOf<Uri?>(null)
+    }
+
+    var userNameState by remember {
+        mutableStateOf("")
+    }
+
+    var userPhoneState by remember {
+        mutableStateOf("")
+    }
+
+    var userEmailState by remember {
+        mutableStateOf("")
+    }
+
+    var userPasswordState by remember {
+        mutableStateOf("")
+    }
+
+    var over18State by remember {
+        mutableStateOf(false)
+    }
+
+    val context = LocalContext.current
 
     Surface(modifier = Modifier.fillMaxSize()) {
-
-        val context = LocalContext.current
-        var checked by remember {
-            mutableStateOf(false)
-        }
-
-
-        Column(
-            modifier = Modifier.fillMaxSize(),
-        ) {
+        Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.SpaceBetween) {
 
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(),
-                horizontalArrangement = Arrangement.End,
+                    .height(40.dp), horizontalArrangement = Arrangement.End
             ) {
+
                 TopShape()
             }
+
             Column(
                 modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
+                    .fillMaxWidth()
+                    .padding(start = 16.dp, end = 16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-
-
                 Text(
                     text = stringResource(id = R.string.sign_up),
-                    fontSize = 32.sp,
                     color = Color(207, 6, 240),
-                    letterSpacing = 4.sp,
-                    fontWeight = FontWeight.Bold,
-                    lineHeight = 48.sp
+                    fontSize = 48.sp,
+                    fontWeight = FontWeight(800),
                 )
-                Text(
-                    text = stringResource(id = R.string.new_account),
-                    fontSize = 14.sp,
-                    color = Color(160, 156, 156)
-                )
-
-                Spacer(modifier = Modifier.height(32.dp))
-
-                Box(modifier = Modifier.size(100.dp)) {
+                Text(text = stringResource(id = R.string.new_account), color = Color(160, 156, 156))
+                Spacer(modifier = Modifier.height(16.dp))
+                Box(
+//                    contentAlignment = Alignment.BottomEnd
+                ) {
                     Card(
-                        modifier = Modifier
-                            .size(100.dp),
+                        modifier = Modifier.size(100.dp),
                         shape = CircleShape,
-                        backgroundColor = Color(232, 232, 232, 255)
+                        backgroundColor = Color(160, 160, 160)
                     ) {
                         Image(
-                            painter = painterResource(id = R.drawable.user),
-                            contentDescription = null
-                        )
-
-                    }
-
-                    Image(
-                        painter = painterResource(id = R.drawable.photo_24),
-                        contentDescription = null,
-                        modifier = Modifier.align(Alignment.BottomEnd)
-                    )
-                }
-
-
-            }
-
-            Column(
-                modifier = Modifier
-                    .height(460.dp)
-                    .padding(start = 17.dp, top = 30.dp, end = 17.dp)
-                    .verticalScroll(rememberScrollState())
-            ) {
-                OutlinedTextField(
-                    value = "",
-                    onValueChange = {
-                        ""
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(16.dp),
-                    label = { Text(stringResource(id = R.string.username)) },
-                    leadingIcon = {
-                        Icon(
                             painter = painterResource(id = R.drawable.person_24),
-                            contentDescription = "Image_email",
-                            modifier = Modifier
-                                .height(27.dp)
-                                .width(22.dp),
-                            tint = Color(207, 6, 240)
+                            contentDescription = ""
                         )
-                    },
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = Color(207, 6, 240),
-                        unfocusedBorderColor = Color(207, 6, 240)
-                    )
-                )
-
-
-                OutlinedTextField(
-                    value = "",
-                    onValueChange = {
-                        ""
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-
-                    shape = RoundedCornerShape(16.dp),
-                    label = { Text(stringResource(id = R.string.phone)) },
-                    visualTransformation = PasswordVisualTransformation(),
-                    leadingIcon = {
-                        Icon(
-                            painter = painterResource(id = R.drawable.phone_24),
-                            contentDescription = "Image_password",
-                            modifier = Modifier
-                                .height(27.dp)
-                                .width(22.dp),
-                            tint = Color(207, 6, 240)
-                        )
-                    }, colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = Color(207, 6, 240),
-                        unfocusedBorderColor = Color(207, 6, 240)
-                    )
-                )
-
-
-                OutlinedTextField(
-                    value = "",
-                    onValueChange = {
-                        ""
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(16.dp),
-                    label = { Text(stringResource(id = R.string.email)) },
-                    leadingIcon = {
-                        Icon(
-                            painter = painterResource(id = R.drawable.email),
-                            contentDescription = "Image_email",
-                            modifier = Modifier
-                                .height(27.dp)
-                                .width(22.dp),
-                            tint = Color(207, 6, 240)
-                        )
-                    }, colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = Color(207, 6, 240),
-                        unfocusedBorderColor = Color(207, 6, 240)
-                    )
-                )
-
-
-                OutlinedTextField(
-                    value = "",
-                    onValueChange = {
-                        ""
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-
-                    shape = RoundedCornerShape(16.dp),
-                    label = { Text(stringResource(id = R.string.password)) },
-                    visualTransformation = PasswordVisualTransformation(),
-                    leadingIcon = {
-                        Icon(
-                            painter = painterResource(id = R.drawable.password),
-                            contentDescription = "Image_password",
-                            modifier = Modifier
-                                .height(27.dp)
-                                .width(22.dp),
-                            tint = Color(207, 6, 240)
-                        )
-                    },
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = Color(207, 6, 240),
-                        unfocusedBorderColor = Color(207, 6, 240)
-                    )
-                )
-
-                Spacer(modifier = Modifier.height(10.dp))
-
-                Row(
-                    modifier = Modifier.padding(start = 17.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Checkbox(
-                        checked = checked,
-                        onCheckedChange = { checked = it },
+                    }
+                    Image(
+                        painterResource(id = R.drawable.photo_24),
+                        contentDescription = "",
                         modifier = Modifier
-                            .height(27.dp)
-                            .width(27.dp)
-
-                    )
-                    Text(
-                        text = stringResource(id = R.string.over_18),
-                        fontSize = 18.sp,
-                        lineHeight = 21.sp
+                            .align(Alignment.BottomEnd)
                     )
                 }
+                Spacer(modifier = Modifier.height(32.dp))
+                //aqui começaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(end = 17.dp),
-                    horizontalAlignment = Alignment.End
-                ) {
-                    Spacer(modifier = Modifier.height(31.dp))
+                Column() {
 
-                    Button(
-                        onClick = { /*TODO*/ },
+                    Column(
                         modifier = Modifier
-                            .width(327.dp)
-                            .height(48.dp),
-                        shape = RoundedCornerShape(16.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            backgroundColor = Color(207, 6, 240)
-                        )
+                            .height(height = 300.dp)
+                            .verticalScroll(rememberScrollState())
                     ) {
-                        Text(
-                            text = stringResource(id = R.string.create).uppercase(),
-                            color = Color.White
+                        OutlinedTextField(
+                            value = userNameState,
+                            shape = RoundedCornerShape(16.dp),
+                            onValueChange = { userNameState = it },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(63.dp),
+                            label = { Text(text = stringResource(id = R.string.username)) },
+                            leadingIcon = {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.person_24),
+                                    contentDescription = "Username",
+                                    modifier = Modifier,
+                                    tint = Color(206, 1, 240)
+                                )
+                            },
+                            colors = TextFieldDefaults
+                                .outlinedTextFieldColors(
+                                    focusedBorderColor = Color(207, 1, 240),
+//                                unfocusedBorderColor = Color(207, 1, 240)
+                                    focusedLabelColor = Color(207, 1, 240)
+                                )
                         )
-                        Icon(
-                            painter = painterResource(id = R.drawable.arrow_forward_24),
-                            contentDescription = "",
-                            tint = Color(255, 255, 255)
+                        Spacer(modifier = Modifier.height(16.dp))
+                        OutlinedTextField(
+                            value = userPhoneState,
+                            shape = RoundedCornerShape(16.dp),
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                            onValueChange = { userPhoneState = it },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(63.dp),
+                            label = { Text(text = stringResource(id = R.string.phone)) },
+                            leadingIcon = {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.phone_24),
+                                    contentDescription = "Phone",
+                                    modifier = Modifier,
+                                    tint = Color(206, 1, 240)
+                                )
+                            },
+                            colors = TextFieldDefaults
+                                .outlinedTextFieldColors(
+                                    focusedBorderColor = Color(207, 1, 240),
+//                                unfocusedBorderColor = Color(207, 1, 240)
+                                    focusedLabelColor = Color(207, 1, 240)
+                                )
                         )
+                        Spacer(modifier = Modifier.height(16.dp))
 
-                    }
-                    Spacer(modifier = Modifier.height(31.dp))
-
-                    Row() {
-                        Text(
-                            text = stringResource(id = R.string.already_account),
-                            color = Color(160, 156, 156),
-                            fontSize = 12.sp,
-                            fontWeight = FontWeight(400),
-                            lineHeight = 18.sp
+                        OutlinedTextField(
+                            value = userEmailState,
+                            shape = RoundedCornerShape(16.dp),
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+                            onValueChange = { userEmailState = it },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(63.dp),
+                            label = { Text(text = stringResource(id = R.string.email)) },
+                            leadingIcon = {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.email),
+                                    contentDescription = "Phone",
+                                    modifier = Modifier,
+                                    tint = Color(206, 1, 240)
+                                )
+                            },
+                            colors = TextFieldDefaults
+                                .outlinedTextFieldColors(
+                                    focusedBorderColor = Color(207, 1, 240),
+//                                unfocusedBorderColor = Color(207, 1, 240)
+                                    focusedLabelColor = Color(207, 1, 240)
+                                )
                         )
-                        Spacer(modifier = Modifier.width(4.dp))
+                        Spacer(modifier = Modifier.height(16.dp))
 
-                        ClickableText(text = AnnotatedString(
-                            text = stringResource(id = R.string.sign_in)
-                        ), style = TextStyle(
-                            color = Color(207, 6, 240),
-                            fontSize = 12.sp,
-                            fontWeight = FontWeight(700),
-                            lineHeight = 18.sp,
-                        ), onClick = {
-                            val openSignIn = Intent(context, MainActivity::class.java)
-                            context.startActivity(openSignIn)
+                        OutlinedTextField(
+                            value = userPasswordState,
+                            shape = RoundedCornerShape(16.dp),
+                            visualTransformation = PasswordVisualTransformation(),
+//                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.),
+                            onValueChange = { userPasswordState = it },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(63.dp),
+                            label = { Text(text = stringResource(id = R.string.password)) },
+                            leadingIcon = {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.lock_24),
+                                    contentDescription = "Phone",
+                                    modifier = Modifier,
+                                    tint = Color(206, 1, 240)
+                                )
+                            },
+                            colors = TextFieldDefaults
+                                .outlinedTextFieldColors(
+                                    focusedBorderColor = Color(207, 1, 240),
+//                                unfocusedBorderColor = Color(207, 1, 240)
+                                    focusedLabelColor = Color(207, 1, 240)
+                                )
+                        )
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+
+                            Checkbox(checked = over18State, onCheckedChange = { over18State = it })
+                            Text(text = stringResource(id = R.string.over_18))
                         }
-                        )
+
+                        Row(
+                            modifier = Modifier.padding(top = 16.dp, bottom = 16.dp),
+                        ) {
+
+                            Button(
+                                onClick = {
+                                    saveUser(
+                                        userName = userNameState,
+                                        phone = userPhoneState,
+                                        email = userEmailState,
+                                        password = userPasswordState,
+                                        isOver18 = over18State,
+                                        context = context
+                                    )
+                                },
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(48.dp),
+                                shape = RoundedCornerShape(16.dp),
+                                colors = ButtonDefaults.buttonColors(Color(207, 1, 240)),
+
+                                ) {
+                                Text(
+                                    text = stringResource(
+                                        id = R.string.create
+                                    ).uppercase(),
+                                    fontWeight = FontWeight(800),
+                                    fontSize = 16.sp,
+                                    color = Color.White
+                                )
+                            }
+                        }
 
 
                     }
+
                 }
+                //aqui terminaaaaaaaaaaaaaaaaaaaaa
+
+
             }
 
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.Start,
-                verticalArrangement = Arrangement.Bottom
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End
             ) {
+                Text(
+                    text = stringResource(id = R.string.already_account),
+                    color = Color(160, 156, 156)
+                )
+                Spacer(modifier = Modifier.width(3.dp))
+                Text(
+                    modifier = Modifier.clickable {
+                        val intent = Intent(context, MainActivity::class.java)
+                        context.startActivity(intent)
+
+                    },
+                    text = stringResource(id = R.string.sign_in),
+                    color = Color(207, 1, 240),
+                    fontWeight = FontWeight(800)
+                )
+            }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(40.dp),
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.Bottom
+            ) {
+
                 BottomShape()
+
             }
 
         }
     }
+}
+
+fun saveUser(
+    userName: String,
+    phone: String,
+    email: String,
+    password: String,
+    isOver18: Boolean,
+    context: Context
+) {
+    //criando um objeto USER
+    val newUser = User(
+        id = 0,
+        username = userName,
+        phone = phone,
+        email = email,
+        password = password,
+        isOver18 = isOver18
+    )
+    //criando uma instância do repositorio
+    val userRepository = UserRepository(context)
+
+    //verificando se o  usuário já existe
+    val user = userRepository.findUserByEmail(email)
+
+    Log.i("ds2m", "${user.toString()}")
+
+    //salvando o usuario
+
+    if (user == null){
+        val id = userRepository.save(newUser)
+        Toast.makeText(context, "$id", Toast.LENGTH_LONG).show()
+    }else{
+        Toast.makeText(context, "User alredy exists", Toast.LENGTH_LONG).show()
+    }
+
+
+
+
 }

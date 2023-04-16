@@ -17,7 +17,7 @@
             android:label="@string/title_activity_home"
             android:theme="@style/Theme.TripApp" />
         <activity
-            android:name=".gui.SignUp"
+            android:name=".gui.SignUpActivity"
             android:exported="false"
             android:label="@string/title_activity_sign_up"
             android:theme="@style/Theme.TripApp" />
