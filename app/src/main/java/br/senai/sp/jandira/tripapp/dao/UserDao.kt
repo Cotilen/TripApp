@@ -23,4 +23,7 @@ interface UserDao {
     @Query("SELECT * FROM tbl_user WHERE email = :email")
     fun findUserByEmail(email: String):User
 
+    //fazer query que busca por id
+    //modificar user reposirory
+
 }

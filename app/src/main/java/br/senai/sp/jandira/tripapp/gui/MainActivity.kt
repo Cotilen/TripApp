@@ -232,8 +232,13 @@ fun authenticateUser(
     val user = userRepository.authenticate(email = email, password = password)
 
     if (user != null){
-        Toast.makeText(context, "User alredy exists", Toast.LENGTH_LONG).show()
-        val intent = Intent(context, HomeActivity::class.java)
+        Toast.makeText(context,
+            "User alredy exists",
+            Toast.LENGTH_LONG).show()
+        val intent =
+            Intent(context,
+            HomeActivity::class.java)
+        intent.putExtra("id", user.id)
         context.startActivity(intent)
     }else{
         Toast.makeText(context, "Email or password incorrect!", Toast.LENGTH_LONG).show()
