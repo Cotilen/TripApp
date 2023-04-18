@@ -239,6 +239,8 @@ fun authenticateUser(
             Intent(context,
             HomeActivity::class.java)
         intent.putExtra("id", user.id)
+        intent.putExtra("name", user.username)
+        intent.putExtra("photo", user.profilePhoto)
         context.startActivity(intent)
     }else{
         Toast.makeText(context, "Email or password incorrect!", Toast.LENGTH_LONG).show()

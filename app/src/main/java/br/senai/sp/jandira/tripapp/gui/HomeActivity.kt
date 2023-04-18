@@ -2,6 +2,7 @@ package br.senai.sp.jandira.tripapp.gui
 
 import android.os.Bundle
 import android.provider.ContactsContract.Data
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
@@ -40,6 +41,10 @@ import java.util.Date
 class HomeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Log.i(
+            
+        )
         setContent {
             TripAppTheme {
                 // A surface container using the 'background' color from the theme
