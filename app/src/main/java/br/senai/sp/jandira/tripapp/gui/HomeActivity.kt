@@ -42,16 +42,21 @@ class HomeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Log.i(
-            
-        )
+        intent.extras
+        val name = intent.getStringExtra("name")
+        val id = intent.getStringExtra("id")
+        val photo = intent.getStringExtra("photo")
+
+        val nomeUsuario: String = name ?: "Usuário"
+
         setContent {
             TripAppTheme {
                 // A surface container using the 'background' color from the theme
                 Surface {
                     HomeScreen(
                         CategoriesRepository.getCategoriesList(),
-                        TripRepository.getTripList()
+                        TripRepository.getTripList(),
+                        nomeUsuario
                     )
 
                 }
@@ -62,14 +67,16 @@ class HomeActivity : ComponentActivity() {
 
 //@Preview(showSystemUi = true)
 @Composable
-fun HomeScreen(categories: List<Categories>, trips: List<Trips>) {
+fun HomeScreen(categories: List<Categories>,
+               trips: List<Trips>,
+               nome: String
+)
+{
     Column(modifier = Modifier.fillMaxSize()) {
         //Header Paris
         Column() {
             Box(
                 modifier = Modifier
-
-
                     .fillMaxWidth()
                     .paint(
                         // Replace with your image id
@@ -94,7 +101,7 @@ fun HomeScreen(categories: List<Categories>, trips: List<Trips>) {
                     )
 
                     Text(
-                        text = stringResource(id = R.string.name),
+                        text = nome,
                         color = Color(255, 255, 255),
                         fontSize = 12.sp,
                         fontWeight = FontWeight(400),
