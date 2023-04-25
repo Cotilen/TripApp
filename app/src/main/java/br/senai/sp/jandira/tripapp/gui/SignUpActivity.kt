@@ -327,8 +327,6 @@ fun SignUpScreen() {
                     }
 
                 }
-                //aqui terminaaaaaaaaaaaaaaaaaaaaa
-
 
             }
 

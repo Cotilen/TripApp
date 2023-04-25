@@ -28,6 +28,7 @@ class CategoriesRepository {
                     name = stringResource(id = R.string.beach),
                     image = painterResource(id = R.drawable.beach)
                 )
+
             )
         }
     }

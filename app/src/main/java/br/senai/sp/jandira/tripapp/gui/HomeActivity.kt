@@ -1,7 +1,10 @@
 package br.senai.sp.jandira.tripapp.gui
 
+import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract.Data
+import android.provider.MediaStore
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -10,8 +13,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
@@ -19,7 +25,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.painter.BitmapPainter
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -35,6 +46,9 @@ import br.senai.sp.jandira.tripapp.dao.repository.TripRepository
 import br.senai.sp.jandira.tripapp.model.Categories
 import br.senai.sp.jandira.tripapp.model.Trips
 import br.senai.sp.jandira.tripapp.ui.theme.TripAppTheme
+import coil.compose.AsyncImage
+import coil.compose.rememberAsyncImagePainter
+import coil.compose.rememberImagePainter
 import java.io.DataInput
 import java.util.Date
 
@@ -49,6 +63,8 @@ class HomeActivity : ComponentActivity() {
 
         val nomeUsuario: String = name ?: "Usuário"
 
+        val fotoUsuario: String = photo ?: ""
+
         setContent {
             TripAppTheme {
                 // A surface container using the 'background' color from the theme
@@ -56,7 +72,8 @@ class HomeActivity : ComponentActivity() {
                     HomeScreen(
                         CategoriesRepository.getCategoriesList(),
                         TripRepository.getTripList(),
-                        nomeUsuario
+                        nomeUsuario,
+                        fotoUsuario
                     )
 
                 }
@@ -69,10 +86,15 @@ class HomeActivity : ComponentActivity() {
 @Composable
 fun HomeScreen(categories: List<Categories>,
                trips: List<Trips>,
-               nome: String
+               nome: String,
+               foto: String
 )
 {
-    Column(modifier = Modifier.fillMaxSize()) {
+    val context = LocalContext.current
+    val uri = Uri.parse(foto)
+
+
+        Column(modifier = Modifier.fillMaxSize()) {
         //Header Paris
         Column() {
             Box(
@@ -81,7 +103,7 @@ fun HomeScreen(categories: List<Categories>,
                     .paint(
                         // Replace with your image id
                         painterResource(id = R.drawable.image_home),
-                        contentScale = ContentScale.FillWidth,
+                        contentScale = ContentScale.Crop,
                     )
 
             )
@@ -93,7 +115,7 @@ fun HomeScreen(categories: List<Categories>,
                     horizontalAlignment = Alignment.End
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.susanna),
+                        painter = painterResource(id = R.drawable.person_24),
                         contentDescription = "",
                         modifier = Modifier
                             .height(61.dp)
@@ -170,8 +192,7 @@ fun HomeScreen(categories: List<Categories>,
         }
         //Cards Categorias
         LazyRow(modifier = Modifier.padding(start = 19.dp)) {
-            for (categorie in categories) {
-                item {
+                items(categories) {categorie ->
                     Card(
                         modifier = Modifier
                             .height(64.dp)
@@ -200,7 +221,7 @@ fun HomeScreen(categories: List<Categories>,
 
                     }
                 }
-            }
+
         }
         //Search
         Row(modifier = Modifier.padding(start = 16.dp, top = 33.dp)) {
@@ -237,8 +258,7 @@ fun HomeScreen(categories: List<Categories>,
         //Trips
         LazyColumn(modifier = Modifier.padding(start = 19.dp)) {
 
-            for (trip in trips) {
-                item {
+                items(trips) {trip ->
                     Card(
                         modifier = Modifier
                             .height(208.dp)
@@ -259,14 +279,14 @@ fun HomeScreen(categories: List<Categories>,
                             Row(modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.Start) {
 
-                                Text(text = trip.city + ", " + trip.year,
+                                Text(text = trip.city ,
                                     color = Color(207, 6, 240),
                                     fontSize = 14.sp,
                                     fontWeight = FontWeight(400),
                                     lineHeight = 21.sp)
                             }
 
-                            
+
                             Text(text = trip.description,
                                 color = Color(160, 156, 156),
                                 fontSize = 10.sp,
@@ -288,7 +308,7 @@ fun HomeScreen(categories: List<Categories>,
                     }
 
                 }
-            }
+
         }
         Column(modifier = Modifier.padding(start = 17.dp)) {
             Card(

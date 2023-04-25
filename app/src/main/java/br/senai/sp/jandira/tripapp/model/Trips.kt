@@ -7,7 +7,6 @@ import java.time.Year
 data class Trips(
     var id: Int = 0,
     var city: String = "",
-    var year: String = "",
     var description: String = "",
     var dataStart: String = "",
     var dataEnd: String = "",

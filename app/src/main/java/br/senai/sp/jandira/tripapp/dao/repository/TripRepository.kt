@@ -19,7 +19,6 @@ class TripRepository {
                 Trips(
                     id = 0,
                     city = stringResource(id = R.string.london),
-                    year = stringResource(id = R.string.london_year),
                     dataStart = stringResource(id = R.string.london_dataStart),
                     dataEnd = stringResource(id = R.string.london_dataEnd),
                     description = stringResource(id = R.string.london_description),
@@ -28,7 +27,6 @@ class TripRepository {
                 Trips(
                     id = 0,
                     city = stringResource(id = R.string.london),
-                    year = stringResource(id = R.string.london_year),
                     dataStart = stringResource(id = R.string.london_dataStart),
                     dataEnd = stringResource(id = R.string.london_dataEnd),
                     description = stringResource(id = R.string.london_description),
