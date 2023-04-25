@@ -5,6 +5,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import br.senai.sp.jandira.tripapp.R
 import br.senai.sp.jandira.tripapp.model.Trips
+import java.time.LocalDate
 import java.time.MonthDay
 import java.time.Year
 
@@ -18,19 +19,26 @@ class TripRepository {
 
                 Trips(
                     id = 0,
-                    city = stringResource(id = R.string.london),
-                    dataStart = stringResource(id = R.string.london_dataStart),
-                    dataEnd = stringResource(id = R.string.london_dataEnd),
+                    location = stringResource(id = R.string.london),
                     description = stringResource(id = R.string.london_description),
-                    image = painterResource(id = R.drawable.london)
+                    dataStart = LocalDate.of(2023,4,21),
+                    dataEnd = LocalDate.of(2023,4,23)
+
+
+                    ),
+                Trips(
+                    id = 1,
+                    location ="São Roque",
+                    description = "Visitei a vinicula Goes, quase não voltei para casa",
+                    dataStart = LocalDate.of(2023,4,21),
+                    dataEnd = LocalDate.of(2023,4,23)
                 ),
                 Trips(
-                    id = 0,
-                    city = stringResource(id = R.string.london),
-                    dataStart = stringResource(id = R.string.london_dataStart),
-                    dataEnd = stringResource(id = R.string.london_dataEnd),
-                    description = stringResource(id = R.string.london_description),
-                    image = painterResource(id = R.drawable.london)
+                    id = 1,
+                    location ="Uma Cidade",
+                    description = "Tava tão louco que nem sei onde tava",
+                    dataStart = LocalDate.of(2023,4,21),
+                    dataEnd = LocalDate.of(2023,4,23)
                 )
             )
 

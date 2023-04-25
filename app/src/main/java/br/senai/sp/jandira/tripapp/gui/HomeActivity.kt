@@ -94,6 +94,7 @@ fun HomeScreen(categories: List<Categories>,
     val uri = Uri.parse(foto)
 
 
+
         Column(modifier = Modifier.fillMaxSize()) {
         //Header Paris
         Column() {
@@ -270,7 +271,7 @@ fun HomeScreen(categories: List<Categories>,
                     ) {
                         Column(modifier = Modifier.padding(5.dp),
                             horizontalAlignment = Alignment.CenterHorizontally) {
-                            Image(painter = painterResource(id = R.drawable.london),
+                            Image(painter = painterResource(id = R.drawable.no_photography_24),
                                 contentDescription = "",
                             modifier = Modifier
                                 .width(315.dp)
@@ -279,7 +280,7 @@ fun HomeScreen(categories: List<Categories>,
                             Row(modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.Start) {
 
-                                Text(text = trip.city ,
+                                Text(text = "${trip.location}, ${trip.dataStart.year}" ,
                                     color = Color(207, 6, 240),
                                     fontSize = 14.sp,
                                     fontWeight = FontWeight(400),
@@ -295,7 +296,7 @@ fun HomeScreen(categories: List<Categories>,
 
                             Row(modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.End) {
-                                Text(text = trip.dataStart + " - " + trip.dataEnd,
+                                Text(text = trip.dataStart.toString() + " - " + trip.dataEnd.toString(),
                                     color = Color(207, 6, 240),
                                     fontSize = 10.sp,
                                     fontWeight = FontWeight(400),
